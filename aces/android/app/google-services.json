@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "489921112933",
+    "firebase_url": "https://aces-by-mindrealm.firebaseio.com",
+    "project_id": "aces-by-mindrealm",
+    "storage_bucket": "aces-by-mindrealm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:489921112933:android:1e256600dea47c9e7d0f8c",
+        "android_client_info": {
+          "package_name": "com.mindrealm.aces"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "489921112933-vrg1rrqt3eau6rp37v4r8st0a5ds5bvs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4-fo8Ltzgz7Y5zZYAMYgoh2FlZNy4h6Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "489921112933-vrg1rrqt3eau6rp37v4r8st0a5ds5bvs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
