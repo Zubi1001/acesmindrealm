@@ -1,6 +1,13 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 
+FirebaseAnalytics analytics;
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Crashlytics.instance.enableInDevMode = true; // turn this off after seeing reports in in the console. 
+  FlutterError.onError = Crashlytics.instance.recordFlutterError;
+  analytics = FirebaseAnalytics();
   runApp(MyApp());
 }
 

@@ -29,6 +29,22 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
 
+  # Database
+  cloud_firestore: 
+
+  # User Auth
+  firebase_auth: 
+  google_sign_in: 
+
+  # Analytics
+  firebase_analytics:
+
+  # Crashlytics
+  firebase_crashlytics:
+
+  # Performance
+  firebase_performance:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
