@@ -33,7 +33,7 @@ dependencies:
   cloud_firestore: 
 
   # User Auth
-  firebase_auth: 
+  firebase_auth: 0.16.0
   google_sign_in: 
 
   # Analytics
@@ -44,6 +44,9 @@ dependencies:
 
   # Performance
   firebase_performance:
+
+
+  intl:  
 
 dev_dependencies:
   flutter_test:
