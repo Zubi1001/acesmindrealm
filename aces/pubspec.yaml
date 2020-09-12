@@ -46,7 +46,9 @@ dependencies:
   firebase_performance:
 
 
-  intl:  
+  intl:
+  font_awesome_flutter:
+  smooth_star_rating:    
 
 dev_dependencies:
   flutter_test:

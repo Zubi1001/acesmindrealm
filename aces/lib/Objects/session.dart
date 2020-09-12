@@ -41,3 +41,16 @@ class Session {
     sessionNotes = json['sessionNotes'];
   }
 }
+
+Session getDummySession() {
+  return Session(
+    duration: Duration(minutes: 100),
+    endTime: DateTime.now().add(Duration(hours: 5)),
+    place: "House",
+    rating: 4.7,
+    sessionNotes: "It was pretty average.",
+    startTime: DateTime.now(),
+    timeInFlow: Duration(minutes: 50),
+    tiredness: 8,
+  );
+}
