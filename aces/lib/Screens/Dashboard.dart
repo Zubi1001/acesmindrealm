@@ -1,4 +1,5 @@
 import 'package:aces/Objects/session.dart';
+import 'package:aces/Screens/placeSelection.dart';
 import 'package:aces/Screens/sessionDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -82,40 +83,47 @@ class _DashboardState extends State<Dashboard> {
                     ),
                   ),
                   elevation: 15,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                            child: Padding(
-                          padding: EdgeInsets.all(width * 0.03),
-                          child: Placeholder(),
-                        )),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: height * 0.02,
-                              ),
-                              Text(
-                                "Start a New Session",
-                                style: TextStyle(
-                                  fontSize: 18,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => PlaceSelection(),
+                      ));
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                              child: Padding(
+                            padding: EdgeInsets.all(width * 0.03),
+                            child: Placeholder(),
+                          )),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: height * 0.02,
                                 ),
-                              ),
-                              Spacer(),
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: Icon(
-                                  Icons.arrow_right,
-                                  color: Color(0xFFFF6F6F),
-                                  size: 48,
+                                Text(
+                                  "Start a New Session",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
+                                Spacer(),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Icon(
+                                    Icons.arrow_right,
+                                    color: Color(0xFFFF6F6F),
+                                    size: 48,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
