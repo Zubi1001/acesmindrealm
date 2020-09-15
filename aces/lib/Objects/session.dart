@@ -4,22 +4,24 @@ class Session {
   Duration duration;
   String place;
   double rating;
+  String task;
   int tiredness;
   Duration timeInFlow;
   String sessionNotes;
 
-  Session({
-    this.duration,
-    this.endTime,
-    this.startTime,
-    this.place,
-    this.rating,
-    this.sessionNotes,
-    this.timeInFlow,
-    this.tiredness,
-  });
+  Session(
+      {this.duration,
+      this.endTime,
+      this.startTime,
+      this.place,
+      this.rating,
+      this.sessionNotes,
+      this.timeInFlow,
+      this.tiredness,
+      this.task});
 
   Map<String, dynamic> toJson() => {
+        'task': task,
         'startTime': startTime,
         'endTime': endTime,
         'duration': duration.toString(),
@@ -31,6 +33,7 @@ class Session {
       };
 
   Session.fromJson(Map<String, dynamic> json) {
+    task = json['task'] ?? "";
     startTime = json['startTime'];
     endTime = json['endTime'];
     duration = startTime.difference(endTime);
