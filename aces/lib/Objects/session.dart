@@ -8,6 +8,10 @@ class Session {
   int tiredness;
   Duration timeInFlow;
   String sessionNotes;
+  int averageSessionFocus;
+  int highestFocus;
+  int lowestFocus;
+  Duration timeInFocus;
 
   Session(
       {this.duration,

@@ -1,4 +1,5 @@
 import 'package:aces/Screens/activeSession.dart';
+import 'package:aces/Screens/gettingSessionReady.dart';
 import 'package:aces/Screens/selectAudio.dart';
 import 'package:aces/Screens/sessionDetails.dart';
 import 'package:flutter/material.dart';
@@ -92,7 +93,7 @@ class _HowTiredState extends State<HowTired> {
                               onPressed: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => ActiveSession(),
+                                    builder: (context) => GettingSessionReady(),
                                   ),
                                 );
                               },

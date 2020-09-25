@@ -9,6 +9,7 @@ buildscript {
         classpath 'com.google.gms:google-services:4.3.3'
         classpath 'com.android.tools.build:gradle:3.5.0'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.2.0'
+        //classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.9'// this I added. based on internet all these errors are after adding this
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }

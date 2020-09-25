@@ -7,7 +7,7 @@ FirebaseAnalytics analytics;
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Crashlytics.instance.enableInDevMode =
-      true; // turn this off after seeing reports in in the console.
+      false; // turn this off after seeing reports in in the console.
   FlutterError.onError = Crashlytics.instance.recordFlutterError;
   analytics = FirebaseAnalytics();
   runApp(MyApp());
