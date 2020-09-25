@@ -61,12 +61,12 @@ class _DashboardState extends State<Dashboard> {
                         child: RaisedButton(
                           color: Color(0xFF99E398),
                           onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(
                               builder: (context) => ActiveSession(),
-                            )).then((value){
-                              setState(() {
-                                
-                              });
+                            ))
+                                .then((value) {
+                              setState(() {});
                             });
                           },
                           child: Row(
@@ -105,10 +105,14 @@ class _DashboardState extends State<Dashboard> {
                           ),
                         ));
                   } else {
-                    return Container();
+                    return Container(
+                      color: Colors.transparent,
+                    );
                   }
                 } else {
-                  return Container();
+                  return Container(
+                    color: Colors.transparent,
+                  );
                 }
               }),
         ),
@@ -116,7 +120,7 @@ class _DashboardState extends State<Dashboard> {
           width: width,
           height: height,
           child: SingleChildScrollView(
-                      child: Column(
+            child: Column(
               children: [
                 SizedBox(
                   height: height * 0.04,
@@ -134,7 +138,12 @@ class _DashboardState extends State<Dashboard> {
                     ),
                     Spacer(),
                     CircleAvatar(
-                      child: Icon(Icons.person),
+                      backgroundColor: Colors.transparent,
+                      child: Icon(
+                        Icons.person,
+                        color: Colors.grey,
+                        size: 42,
+                      ),
                     ),
                     SizedBox(
                       width: width * 0.07,

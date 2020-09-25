@@ -1,4 +1,5 @@
 import 'package:aces/Screens/Dashboard.dart';
+import 'package:aces/auth/authService.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         appBarTheme: AppBarTheme(
@@ -32,7 +34,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Dashboard(),
+      home: AuthService().handleAuth(),
     );
   }
 }
