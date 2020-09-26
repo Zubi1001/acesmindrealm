@@ -1,7 +1,8 @@
-
+import 'package:aces/Managers/assetManager.dart';
 import 'package:aces/Objects/session.dart';
 import 'package:aces/Screens/sessionDetails.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 
 class SessionVerticalCard extends StatelessWidget {
@@ -14,7 +15,9 @@ class SessionVerticalCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(20),
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => SessionDetails(session: session,),
+          builder: (context) => SessionDetails(
+            session: session,
+          ),
         ));
       },
       child: Container(
@@ -74,11 +77,12 @@ class SessionVerticalCard extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Placeholder(
-                        color: Colors.white,
-                        fallbackWidth: 20,
-                        fallbackHeight: 20,
-                      ),
+                      child: placesAssetsMini[session?.place] ??
+                          SvgPicture.asset("assets/svgs/other.svg",
+                              height: 30,
+                              width: 30,
+                              color: Colors.white,
+                              semanticsLabel: 'A red up arrow'),
                     ),
                     Spacer(),
                   ],

@@ -15,7 +15,6 @@ class PlaceSelection extends StatefulWidget {
 }
 
 class _PlaceSelectionState extends State<PlaceSelection> {
- 
   Session session;
 
   String selected = '';
@@ -71,8 +70,9 @@ class _PlaceSelectionState extends State<PlaceSelection> {
                 height: height * 0.07,
               ),
               Container(
-                height: height * 0.52,
+                // height: height * 0.52,
                 child: GridView.count(
+                  shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   crossAxisCount: 3,
                   children: List<Widget>.generate(
@@ -99,21 +99,16 @@ class _PlaceSelectionState extends State<PlaceSelection> {
                         child: Column(
                           children: [
                             Container(
+                              height: 80,
+                              width: 80,
                               decoration: BoxDecoration(
                                 color: selected == places[index]
                                     ? myPink
-                                    : Colors.grey[400],
+                                    : Colors.grey[500],
                                 shape: BoxShape.circle,
                                 // borderRadius: BorderRadius.circular(20,),
                               ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(24.0),
-                                child: FaIcon(
-                                  FontAwesomeIcons.coffee,
-                                  size: 40,
-                                  color: Colors.white,
-                                ),
-                              ),
+                              child: Center(child: placesAssets[places[index]]),
                             ),
                             SizedBox(
                               height: height * 0.01,

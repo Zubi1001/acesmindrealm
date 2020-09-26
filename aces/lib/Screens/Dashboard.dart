@@ -65,7 +65,9 @@ class _DashboardState extends State<Dashboard> {
                           onPressed: () {
                             Navigator.of(context)
                                 .push(MaterialPageRoute(
-                              builder: (context) => ActiveSession(),
+                              builder: (context) => ActiveSession(
+                                session: currentlyActiveSession,
+                              ),
                             ))
                                 .then((value) {
                               setState(() {});
@@ -194,9 +196,11 @@ class _DashboardState extends State<Dashboard> {
                     child: InkWell(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => PlaceSelection(
-                            session: Session(),
-                          ),
+                          builder: (context) => activeStatus == AppStatus.Active
+                              ? SessionAlreadyActive()
+                              : PlaceSelection(
+                                  session: Session(),
+                                ),
                         ));
                       },
                       child: Padding(

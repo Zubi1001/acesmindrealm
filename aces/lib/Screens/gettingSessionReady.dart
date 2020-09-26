@@ -2,6 +2,8 @@ import 'package:aces/Objects/session.dart';
 import 'package:aces/Screens/activeSession.dart';
 import 'package:flutter/material.dart';
 
+Session currentlyActiveSession;
+
 class GettingSessionReady extends StatefulWidget {
   final Session session;
 
@@ -15,6 +17,7 @@ class _GettingSessionReadyState extends State<GettingSessionReady> {
   @override
   void initState() {
     super.initState();
+    currentlyActiveSession=widget.session;
     image = AssetImage("assets/countdown.gif");
     Future.delayed(Duration(seconds: 8)).then((value) {
       if (mounted) {

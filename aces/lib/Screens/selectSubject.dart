@@ -1,3 +1,4 @@
+import 'package:aces/Managers/assetManager.dart';
 import 'package:aces/Objects/session.dart';
 import 'package:aces/Screens/categorySelection.dart';
 import 'package:aces/Screens/selectAudio.dart';
@@ -16,17 +17,7 @@ class SelectSubject extends StatefulWidget {
 
 class _SelectSubjectState extends State<SelectSubject> {
   Session session;
-  List<String> subjects = [
-    'Biology',
-    'Chemistry',
-    'Physics',
-    'Maths',
-    'History',
-    'Geography',
-    'English',
-    'Economics',
-    'Other',
-  ];
+
 
   String selected = '';
 
@@ -81,8 +72,9 @@ class _SelectSubjectState extends State<SelectSubject> {
                 height: height * 0.07,
               ),
               Container(
-                height: height * 0.52,
+                //height: height * 0.52,
                 child: GridView.count(
+                  shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   crossAxisCount: 3,
                   children: List<Widget>.generate(
@@ -109,6 +101,8 @@ class _SelectSubjectState extends State<SelectSubject> {
                         child: Column(
                           children: [
                             Container(
+                              height: 80,
+                              width: 80,
                               decoration: BoxDecoration(
                                 color: selected == subjects[index]
                                     ? myPink
@@ -116,14 +110,7 @@ class _SelectSubjectState extends State<SelectSubject> {
                                 shape: BoxShape.circle,
                                 // borderRadius: BorderRadius.circular(20,),
                               ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(24.0),
-                                child: FaIcon(
-                                  FontAwesomeIcons.coffee,
-                                  size: 40,
-                                  color: Colors.white,
-                                ),
-                              ),
+                              child: Center(child: subjectAssets[subjects[index]])
                             ),
                             SizedBox(
                               height: height * 0.01,

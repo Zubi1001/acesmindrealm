@@ -1,3 +1,4 @@
+import 'package:aces/Managers/assetManager.dart';
 import 'package:aces/Objects/session.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -20,13 +21,12 @@ enum AppStatus { Active, Inactive }
 
 class _ActiveSessionState extends State<ActiveSession> {
   Session session;
-  TextEditingController sessionNotes=new TextEditingController();
-
+  TextEditingController sessionNotes = new TextEditingController();
 
   @override
   void initState() {
     super.initState();
-
+    session = widget.session;
     //print(stopWatchTimer.isRunning);
     if (activeStatus == AppStatus.Active) {
       stopWatchTimer.setPresetSecondTime(activeSeconds);
@@ -181,7 +181,8 @@ class _ActiveSessionState extends State<ActiveSession> {
                                 children: [
                                   // Spacer(),
                                   Text(
-                                    widget.session.tiredness?.toString() ?? "?",
+                                    widget.session?.tiredness?.toString() ??
+                                        "?",
                                     style: TextStyle(
                                         fontSize: 40,
                                         fontWeight: FontWeight.w600,
@@ -208,14 +209,11 @@ class _ActiveSessionState extends State<ActiveSession> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Spacer(),
-                                  Icon(
-                                    Icons.library_books,
-                                    size: 35,
-                                    color: Colors.grey[600],
-                                  ),
+                                  placesAssetsMiniBlack[widget.session?.place] ??
+                                      placesAssetsMiniBlack['Other'],
                                   // FaIcon(FontAwesomeIcons.bookOpen),
                                   SizedBox(height: 6),
-                                  Text(widget.session.place ?? "Unknown",
+                                  Text(widget.session?.place ?? "Unknown",
                                       style: TextStyle(fontSize: 10)),
                                 ],
                               ),
@@ -236,11 +234,8 @@ class _ActiveSessionState extends State<ActiveSession> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Spacer(),
-                                  FaIcon(
-                                    FontAwesomeIcons.flask,
-                                    size: 30,
-                                    color: Colors.grey[600],
-                                  ),
+                                  subjectAssetsMiniBlack[widget.session.task] ??
+                                      subjectAssetsMiniBlack['Other'],
                                   SizedBox(height: 6),
                                   Text(widget.session.task ?? "Unknown",
                                       style: TextStyle(fontSize: 10)),
@@ -283,9 +278,9 @@ class _ActiveSessionState extends State<ActiveSession> {
                             child: InkWell(
                               onTap: () {
                                 activeStatus = AppStatus.Inactive;
-                                session=widget.session;
+                                session = widget.session;
                                 session.durationInSeconds = activeSeconds;
-                                session.sessionNotes=sessionNotes.text;
+                                session.sessionNotes = sessionNotes.text;
                                 activeSeconds = 0;
 
                                 stopWatchTimer.onExecute

@@ -37,81 +37,83 @@ class _SessionSummaryState extends State<SessionSummary> {
       body: Padding(
         padding: EdgeInsets.symmetric(
             horizontal: MediaQuery.of(context).size.width * 0.1),
-        child: Column(
-          children: [
-            Text(
-              "Session Summary",
-              style: TextStyle(
-                fontSize: 35,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.06,
-            ),
-            buildCustomRow(
-              string1: "Session Average Focus Level",
-              string2: "Your overall average focus:",
-              value1: session.averageSessionFocus ?? 63,
-              value2: 10,
-            ),
-            buildCustomRow(
-              string1: "Highest Focus Level",
-              string2: "your all-time highest:",
-              value1: session.highestFocus ?? 76,
-              value2: 83,
-            ),
-            buildCustomRow(
-              string1: "Overall Average Focus Level",
-              string2: "all-time average:",
-              value1: 62,
-              value2: 54,
-            ),
-            singleText(
-              value: 23,
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.04,
-            ),
-            timeRow(
-              value: 40,
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.08,
-            ),
-            InkWell(
-              onTap: () {
-                var docID = Firestore.instance
-                    .collection('/users')
-                    .document(currentUser.uid)
-                    .collection('sessions')
-                    .document()
-                    .documentID;
-
-                session.sessionID = docID;
-                Firestore.instance
-                    .collection('/users')
-                    .document(currentUser.uid)
-                    .collection('sessions')
-                    .document(docID)
-                    .setData(session.toJson())
-                    .then((value) {
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                        builder: (context) => Dashboard(),
-                      ),
-                      (Route<dynamic> route) => false);
-                });
-              },
-              child: Text(
-                "tap here to continue",
+        child: SingleChildScrollView(
+                  child: Column(
+            children: [
+              Text(
+                "Session Summary",
                 style: TextStyle(
-                  decoration: TextDecoration.underline,
-                  fontSize: 22,
+                  fontSize: 35,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
-            ),
-          ],
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.06,
+              ),
+              buildCustomRow(
+                string1: "Session Average Focus Level",
+                string2: "Your overall average focus:",
+                value1: session.averageSessionFocus ?? 63,
+                value2: 10,
+              ),
+              buildCustomRow(
+                string1: "Highest Focus Level",
+                string2: "your all-time highest:",
+                value1: session.highestFocus ?? 76,
+                value2: 83,
+              ),
+              buildCustomRow(
+                string1: "Overall Average Focus Level",
+                string2: "all-time average:",
+                value1: 62,
+                value2: 54,
+              ),
+              singleText(
+                value: 23,
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.04,
+              ),
+              timeRow(
+                value: 40,
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.08,
+              ),
+              InkWell(
+                onTap: () {
+                  var docID = Firestore.instance
+                      .collection('/users')
+                      .document(currentUser.uid)
+                      .collection('sessions')
+                      .document()
+                      .documentID;
+
+                  session.sessionID = docID;
+                  Firestore.instance
+                      .collection('/users')
+                      .document(currentUser.uid)
+                      .collection('sessions')
+                      .document(docID)
+                      .setData(session.toJson())
+                      .then((value) {
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (context) => Dashboard(),
+                        ),
+                        (Route<dynamic> route) => false);
+                  });
+                },
+                child: Text(
+                  "tap here to continue",
+                  style: TextStyle(
+                    decoration: TextDecoration.underline,
+                    fontSize: 22,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

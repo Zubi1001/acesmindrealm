@@ -1,6 +1,7 @@
 import 'package:aces/Objects/session.dart';
 import 'package:aces/Screens/selectSubject.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class SelectCategory extends StatefulWidget {
   final Session session;
@@ -66,7 +67,7 @@ class _SelectCategoryState extends State<SelectCategory> {
                 ),
               ),
               SizedBox(
-                height: height * 0.07,
+                height: height * 0.1,
               ),
               InkWell(
                 onTap: () {
@@ -77,19 +78,32 @@ class _SelectCategoryState extends State<SelectCategory> {
                     ),
                   ));
                 },
-                child: Placeholder(
-                  fallbackHeight: height * 0.2,
-                  fallbackWidth: width * 0.3,
-                ),
+                child: SvgPicture.asset("assets/svgs/studying.svg",
+                    //height: 30,
+                    //width: 30,
+                    // color: Colors.white,
+                    semanticsLabel: 'A red up arrow'),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "Studying",
-                  style: TextStyle(
-                    fontSize: 20,
+              SizedBox(
+                height: height * 0.01,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Studying",
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
                   ),
-                ),
+                  Icon(Icons.arrow_forward),
+                ],
+              ),
+              SizedBox(
+                height: height * 0.05,
               ),
               InkWell(
                 onTap: () {
@@ -100,19 +114,29 @@ class _SelectCategoryState extends State<SelectCategory> {
                     ),
                   ));
                 },
-                child: Placeholder(
-                  fallbackHeight: height * 0.2,
-                  fallbackWidth: width * 0.3,
-                ),
+                child: SvgPicture.asset("assets/svgs/workingMan.svg",
+                    //height: 30,
+                    //width: 30,
+                    // color: Colors.white,
+                    semanticsLabel: 'A red up arrow'),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "Working",
-                  style: TextStyle(
-                    fontSize: 20,
+              SizedBox(
+                height: height * 0.01,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Working",
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
                   ),
-                ),
+                  Icon(Icons.arrow_forward),
+                ],
               ),
             ],
           ),

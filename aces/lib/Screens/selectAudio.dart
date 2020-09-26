@@ -3,6 +3,7 @@ import 'package:aces/Screens/selectSubject.dart';
 import 'package:aces/Screens/sessionDetails.dart';
 import 'package:aces/Screens/tired.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SelectAudio extends StatefulWidget {
@@ -19,6 +20,27 @@ SoundMode mode;
 class _SelectAudioState extends State<SelectAudio> {
   @override
   Widget build(BuildContext context) {
+    var widgetlist = <Widget>[
+      SvgPicture.asset("assets/svgs/audioCues.svg",
+          height: 50,
+          width: 50,
+          color: mode == SoundMode.custom ? myPink : Colors.grey[600],
+          //color: Colors.white,
+          semanticsLabel: 'A red up arrow'),
+      SvgPicture.asset("assets/svgs/music.svg",
+          height: 50,
+          width: 50,
+          color: mode == SoundMode.music ? myPink : Colors.grey[600],
+
+          // color: Colors.white,
+          semanticsLabel: 'A red up arrow'),
+      SvgPicture.asset("assets/svgs/mute.svg",
+          height: 50,
+          width: 50,
+          color: mode == SoundMode.mute ? myPink : Colors.grey[600],
+          //color: Colors.white,
+          semanticsLabel: 'A red up arrow'),
+    ];
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -84,12 +106,7 @@ class _SelectAudioState extends State<SelectAudio> {
                 },
                 child: Column(
                   children: [
-                    Icon(
-                      FontAwesomeIcons.waveSquare,
-                      size: 100,
-                      color:
-                          mode == SoundMode.custom ? myPink : Colors.grey[600],
-                    ),
+                    widgetlist[0],
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
@@ -118,12 +135,7 @@ class _SelectAudioState extends State<SelectAudio> {
                 },
                 child: Column(
                   children: [
-                    Icon(
-                      FontAwesomeIcons.music,
-                      color:
-                          mode == SoundMode.music ? myPink : Colors.grey[600],
-                      size: 100,
-                    ),
+                    widgetlist[1],
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
@@ -151,11 +163,7 @@ class _SelectAudioState extends State<SelectAudio> {
                 },
                 child: Column(
                   children: [
-                    Icon(
-                      FontAwesomeIcons.volumeOff,
-                      color: mode == SoundMode.mute ? myPink : Colors.grey[600],
-                      size: 100,
-                    ),
+                    widgetlist[2],
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(

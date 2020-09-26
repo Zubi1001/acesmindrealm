@@ -1,3 +1,4 @@
+import 'package:aces/Managers/assetManager.dart';
 import 'package:aces/Objects/session.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -62,7 +63,8 @@ class _SessionDetailsState extends State<SessionDetails> {
                       height: height * 0.01,
                     ),
                     Text(
-                      (session.durationInSeconds ~/ 60).toString() + " minute${(session.durationInSeconds ~/ 60)==1?"":'s'}",
+                      (session.durationInSeconds ~/ 60).toString() +
+                          " minute${(session.durationInSeconds ~/ 60) == 1 ? "" : 's'}",
                       style: TextStyle(
                         fontSize: 25,
                         color: Colors.white,
@@ -73,7 +75,7 @@ class _SessionDetailsState extends State<SessionDetails> {
                       height: height * 0.05,
                     ),
                     Text(
-                      "At a ${session.place}",
+                      "At ${session.place}",
                       style: TextStyle(
                         fontSize: 15,
                         color: Colors.white,
@@ -83,10 +85,7 @@ class _SessionDetailsState extends State<SessionDetails> {
                     Row(
                       children: [
                         Spacer(),
-                        Placeholder(
-                          fallbackHeight: height * 0.1,
-                          fallbackWidth: width * 0.3,
-                        )
+                        placesAssetsLarge[session.place],
                       ],
                     )
                   ],
@@ -137,7 +136,7 @@ class _SessionDetailsState extends State<SessionDetails> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  session?.sessionNotes??"N/A",
+                  session?.sessionNotes ?? "N/A",
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.grey,
@@ -309,7 +308,7 @@ class _SessionDetailsState extends State<SessionDetails> {
                 ),
                 Container(
                   child: Text(
-                    Duration(seconds: session?.timeInFlowInSeconds??100)
+                    Duration(seconds: session?.timeInFlowInSeconds ?? 100)
                         .inMinutes
                         .toString(),
                     style: TextStyle(
@@ -319,7 +318,7 @@ class _SessionDetailsState extends State<SessionDetails> {
                   ),
                 ),
                 Text(
-                  "minute${Duration(seconds: session?.timeInFlowInSeconds??100).inMinutes==1?'':'s'}",
+                  "minute${Duration(seconds: session?.timeInFlowInSeconds ?? 100).inMinutes == 1 ? '' : 's'}",
                   style: TextStyle(
                     fontSize: 11,
                     color: Colors.white,
