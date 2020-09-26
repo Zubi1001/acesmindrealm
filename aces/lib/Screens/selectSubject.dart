@@ -18,7 +18,6 @@ class SelectSubject extends StatefulWidget {
 class _SelectSubjectState extends State<SelectSubject> {
   Session session;
 
-
   String selected = '';
 
   @override
@@ -35,9 +34,13 @@ class _SelectSubjectState extends State<SelectSubject> {
           color: Colors.black,
         ),
         actions: [
-          Icon(
-            Icons.headset,
-            color: Colors.grey[400],
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: Icon(
+              Icons.headset,
+              color: Colors.grey[400],
+              size: 28,
+            ),
           ),
         ],
       ),
@@ -101,17 +104,17 @@ class _SelectSubjectState extends State<SelectSubject> {
                         child: Column(
                           children: [
                             Container(
-                              height: 80,
-                              width: 80,
-                              decoration: BoxDecoration(
-                                color: selected == subjects[index]
-                                    ? myPink
-                                    : Colors.grey[400],
-                                shape: BoxShape.circle,
-                                // borderRadius: BorderRadius.circular(20,),
-                              ),
-                              child: Center(child: subjectAssets[subjects[index]])
-                            ),
+                                height: 80,
+                                width: 80,
+                                decoration: BoxDecoration(
+                                  color: selected == subjects[index]
+                                      ? myPink
+                                      : Colors.grey[400],
+                                  shape: BoxShape.circle,
+                                  // borderRadius: BorderRadius.circular(20,),
+                                ),
+                                child: Center(
+                                    child: subjectAssets[subjects[index]])),
                             SizedBox(
                               height: height * 0.01,
                             ),

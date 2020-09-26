@@ -26,9 +26,13 @@ class _SelectCategoryState extends State<SelectCategory> {
           color: Colors.black,
         ),
         actions: [
-          Icon(
-            Icons.headset,
-            color: Colors.grey[400],
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: Icon(
+              Icons.headset,
+              color: Colors.grey[400],
+              size: 28,
+            ),
           ),
         ],
       ),

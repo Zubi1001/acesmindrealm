@@ -1,4 +1,5 @@
 import 'package:aces/Objects/session.dart';
+import 'package:aces/Screens/Dashboard.dart';
 import 'package:aces/Screens/activeSession.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +22,7 @@ class _GettingSessionReadyState extends State<GettingSessionReady> {
     image = AssetImage("assets/countdown.gif");
     Future.delayed(Duration(seconds: 8)).then((value) {
       if (mounted) {
+        
         Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => ActiveSession(
             session: widget.session,

@@ -5,6 +5,9 @@ import 'package:aces/Screens/placeSelection.dart';
 import 'package:aces/Screens/sessionDetails.dart';
 import 'package:aces/Screens/testValues.dart';
 import 'package:aces/auth/authService.dart';
+import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:intl/intl.dart';
@@ -19,6 +22,9 @@ class Dashboard extends StatefulWidget {
   _DashboardState createState() => _DashboardState();
 }
 
+const audioCueTrack =
+    "https://firebasestorage.googleapis.com/v0/b/aces-by-mindrealm.appspot.com/o/focusmusic.mp3?alt=media&token=8c011f68-d23a-4742-9234-133e5192949a";
+AudioPlayer player = AudioPlayer();
 var deviceId;
 
 class _DashboardState extends State<Dashboard> {
@@ -33,7 +39,6 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     // flutterBlue.scan().listen((ScanResult scanResult) {
     //   var device = scanResult.device;
@@ -143,10 +148,13 @@ class _DashboardState extends State<Dashboard> {
                     Spacer(),
                     CircleAvatar(
                       backgroundColor: Colors.transparent,
-                      child: Icon(
-                        Icons.person,
-                        color: Colors.grey[400],
-                        size: 42,
+                      child: InkWell(
+                        onTap: () {},
+                        child: Icon(
+                          Icons.person,
+                          color: Colors.grey[400],
+                          size: 42,
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -175,7 +183,8 @@ class _DashboardState extends State<Dashboard> {
                 ),
                 Container(
                   height: height * 0.23,
-                  width: width * 0.9,
+                  margin: EdgeInsets.symmetric(horizontal: width * 0.05),
+                  // width: width * 0.9,
                   //            decoration: BoxDecoration(
                   //   boxShadow: [
                   //     BoxShadow(
@@ -195,13 +204,17 @@ class _DashboardState extends State<Dashboard> {
                     elevation: 15,
                     child: InkWell(
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(
                           builder: (context) => activeStatus == AppStatus.Active
                               ? SessionAlreadyActive()
                               : PlaceSelection(
                                   session: Session(),
                                 ),
-                        ));
+                        ))
+                            .then((value) {
+                          setState(() {});
+                        });
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -212,28 +225,30 @@ class _DashboardState extends State<Dashboard> {
                               //width: 1000,
                               // height: 1000,
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                SizedBox(
-                                  height: height * 0.02,
-                                ),
-                                Text(
-                                  "Start a New \nSession",
-                                  style: TextStyle(
-                                    fontSize: 18,
+                            Flexible(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  SizedBox(
+                                    height: height * 0.02,
                                   ),
-                                ),
-                                Spacer(),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Icon(
-                                    Icons.arrow_right,
-                                    color: Color(0xFFFF6F6F),
-                                    size: 48,
+                                  Text(
+                                    "Start a New \nSession",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                  Spacer(),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Icon(
+                                      Icons.arrow_right,
+                                      color: Color(0xFFFF6F6F),
+                                      size: 48,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             )
                           ],
                         ),

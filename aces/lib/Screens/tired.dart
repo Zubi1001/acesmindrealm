@@ -1,4 +1,5 @@
 import 'package:aces/Objects/session.dart';
+import 'package:aces/Screens/Dashboard.dart';
 import 'package:aces/Screens/activeSession.dart';
 import 'package:aces/Screens/gettingSessionReady.dart';
 import 'package:aces/Screens/selectAudio.dart';
@@ -96,8 +97,14 @@ class _HowTiredState extends State<HowTired> {
                         children: [
                           FlatButton(
                               onPressed: () {
-                                session=widget.session;
-                                session.tiredness=tired;
+                                session = widget.session;
+                                session.tiredness = tired;
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                           
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder: (context) => GettingSessionReady(

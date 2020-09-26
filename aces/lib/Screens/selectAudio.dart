@@ -2,6 +2,7 @@ import 'package:aces/Objects/session.dart';
 import 'package:aces/Screens/selectSubject.dart';
 import 'package:aces/Screens/sessionDetails.dart';
 import 'package:aces/Screens/tired.dart';
+import 'package:audio_picker/audio_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -16,6 +17,7 @@ class SelectAudio extends StatefulWidget {
 
 enum SoundMode { custom, music, mute }
 SoundMode mode;
+String audioPath;
 
 class _SelectAudioState extends State<SelectAudio> {
   @override
@@ -126,12 +128,18 @@ class _SelectAudioState extends State<SelectAudio> {
                 onTap: () {
                   if (mode == SoundMode.music) {
                     mode = null;
+                    setState(() {});
                   } else {
-                    mode = SoundMode.music;
+                    AudioPicker.pickAudio().then((value) {
+                      if (value.isNotEmpty) {
+                        mode = SoundMode.music;
+                        audioPath = value;
+                      }
+                      setState(() {});
+                    });
                   }
 
                   //mode = SoundMode.music;
-                  setState(() {});
                 },
                 child: Column(
                   children: [

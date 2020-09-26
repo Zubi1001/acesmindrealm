@@ -1,5 +1,8 @@
 import 'package:aces/Managers/assetManager.dart';
 import 'package:aces/Objects/session.dart';
+import 'package:aces/Screens/Dashboard.dart';
+import 'package:aces/Screens/selectAudio.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
@@ -27,6 +30,7 @@ class _ActiveSessionState extends State<ActiveSession> {
   void initState() {
     super.initState();
     session = widget.session;
+    
     //print(stopWatchTimer.isRunning);
     if (activeStatus == AppStatus.Active) {
       stopWatchTimer.setPresetSecondTime(activeSeconds);
@@ -39,6 +43,13 @@ class _ActiveSessionState extends State<ActiveSession> {
       );
       activeStatus = AppStatus.Active;
       stopWatchTimer.onExecute.add(StopWatchExecute.start);
+      if(mode==SoundMode.music && audioPath.isNotEmpty){
+        player.play(audioPath, stayAwake: true);
+        player.setReleaseMode(ReleaseMode.LOOP);
+      }else if(mode==SoundMode.custom){
+         player.play(audioCueTrack, stayAwake: true);
+        player.setReleaseMode(ReleaseMode.LOOP);
+      }
     }
   }
 
