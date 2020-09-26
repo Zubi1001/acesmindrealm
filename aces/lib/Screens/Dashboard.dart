@@ -141,7 +141,7 @@ class _DashboardState extends State<Dashboard> {
                       backgroundColor: Colors.transparent,
                       child: Icon(
                         Icons.person,
-                        color: Colors.grey,
+                        color: Colors.grey[400],
                         size: 42,
                       ),
                     ),
@@ -192,7 +192,9 @@ class _DashboardState extends State<Dashboard> {
                     child: InkWell(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => PlaceSelection(),
+                          builder: (context) => PlaceSelection(
+                            session: Session(),
+                          ),
                         ));
                       },
                       child: Padding(
@@ -350,13 +352,13 @@ class SessionVerticalCard extends StatelessWidget {
                 Text(
                   DateFormat.yMMMd()
                       .format(
-                        session?.startTime ?? DateTime.now(),
+                        session?.sessionDate ?? DateTime.now(),
                       )
                       .substring(
                         0,
                         DateFormat.yMMMd()
                             .format(
-                              session?.startTime ?? DateTime.now(),
+                              session?.sessionDate ?? DateTime.now(),
                             )
                             .indexOf(','),
                       ),

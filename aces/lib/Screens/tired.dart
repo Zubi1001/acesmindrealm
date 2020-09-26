@@ -1,3 +1,4 @@
+import 'package:aces/Objects/session.dart';
 import 'package:aces/Screens/activeSession.dart';
 import 'package:aces/Screens/gettingSessionReady.dart';
 import 'package:aces/Screens/selectAudio.dart';
@@ -5,11 +6,15 @@ import 'package:aces/Screens/sessionDetails.dart';
 import 'package:flutter/material.dart';
 
 class HowTired extends StatefulWidget {
+  final Session session;
+
+  const HowTired({Key key, this.session}) : super(key: key);
   @override
   _HowTiredState createState() => _HowTiredState();
 }
 
 class _HowTiredState extends State<HowTired> {
+  Session session;
   double tiredSlider = 0;
   int tired = 0;
   @override
@@ -91,9 +96,13 @@ class _HowTiredState extends State<HowTired> {
                         children: [
                           FlatButton(
                               onPressed: () {
+                                session=widget.session;
+                                session.tiredness=tired;
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => GettingSessionReady(),
+                                    builder: (context) => GettingSessionReady(
+                                      session: session,
+                                    ),
                                   ),
                                 );
                               },

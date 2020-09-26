@@ -1,3 +1,4 @@
+import 'package:aces/Objects/session.dart';
 import 'package:aces/Screens/categorySelection.dart';
 import 'package:aces/Screens/selectAudio.dart';
 import 'package:aces/Screens/sessionDetails.dart';
@@ -5,11 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SelectSubject extends StatefulWidget {
+  final Session session;
+  final bool isWork;
+
+  const SelectSubject({Key key, this.session, this.isWork}) : super(key: key);
   @override
   _SelectSubjectState createState() => _SelectSubjectState();
 }
 
 class _SelectSubjectState extends State<SelectSubject> {
+  Session session;
   List<String> subjects = [
     'Biology',
     'Chemistry',
@@ -30,6 +36,7 @@ class _SelectSubjectState extends State<SelectSubject> {
     double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -64,7 +71,7 @@ class _SelectSubjectState extends State<SelectSubject> {
               Padding(
                 padding: EdgeInsets.only(left: width * 0.08),
                 child: Text(
-                  "What are you studying?",
+                  "What are you ${widget.isWork ? "working on?" : "studying?"}",
                   style: TextStyle(
                     fontSize: 20,
                   ),
@@ -138,7 +145,7 @@ class _SelectSubjectState extends State<SelectSubject> {
                   ? Padding(
                       padding: EdgeInsets.symmetric(horizontal: width * 0.08),
                       child: TextField(
-                        controller: otherPlace,
+                        controller: otherSubject,
                         enableInteractiveSelection: true,
                         decoration: InputDecoration(
                             border: InputBorder.none,
@@ -159,11 +166,30 @@ class _SelectSubjectState extends State<SelectSubject> {
                           children: [
                             FlatButton(
                                 onPressed: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) => SelectAudio(),
-                                    ),
-                                  );
+                                  if (selected == "Other" &&
+                                      otherSubject.text.isEmpty) {
+                                    scaffoldKey.currentState
+                                        .showSnackBar(SnackBar(
+                                            backgroundColor: Colors.red,
+                                            content: Text(
+                                              "Please enter the task name",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                              ),
+                                            )));
+                                  } else {
+                                    session = widget.session;
+                                    selected == "Other"
+                                        ? session.task = otherSubject.text
+                                        : session.task = selected;
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => SelectAudio(
+                                          session: session,
+                                        ),
+                                      ),
+                                    );
+                                  }
                                 },
 
                                 // icon: Icon(
@@ -190,5 +216,7 @@ class _SelectSubjectState extends State<SelectSubject> {
     );
   }
 
-  TextEditingController otherPlace = new TextEditingController();
+  GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  TextEditingController otherSubject = new TextEditingController();
 }

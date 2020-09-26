@@ -1,3 +1,4 @@
+import 'package:aces/Objects/session.dart';
 import 'package:aces/Screens/selectSubject.dart';
 import 'package:aces/Screens/sessionDetails.dart';
 import 'package:aces/Screens/tired.dart';
@@ -5,15 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SelectAudio extends StatefulWidget {
+  final Session session;
+
+  const SelectAudio({Key key, this.session}) : super(key: key);
   @override
   _SelectAudioState createState() => _SelectAudioState();
 }
 
 enum SoundMode { custom, music, mute }
+SoundMode mode;
 
 class _SelectAudioState extends State<SelectAudio> {
-  SoundMode mode;
-
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -177,7 +180,9 @@ class _SelectAudioState extends State<SelectAudio> {
                                 onPressed: () {
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
-                                      builder: (context) => HowTired(),
+                                      builder: (context) => HowTired(
+                                        session: widget.session,
+                                      ),
                                     ),
                                   );
                                 },

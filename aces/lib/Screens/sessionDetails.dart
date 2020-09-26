@@ -18,7 +18,7 @@ class _SessionDetailsState extends State<SessionDetails> {
   void initState() {
     super.initState();
     session = widget.session;
-    session = getDummySession();
+    // session = getDummySession();
   }
 
   @override
@@ -51,7 +51,7 @@ class _SessionDetailsState extends State<SessionDetails> {
                       height: height * 0.12,
                     ),
                     Text(
-                      DateFormat.yMMMd().format(session.startTime),
+                      DateFormat.yMMMd().format(session.sessionDate),
                       style: TextStyle(
                         fontSize: 35,
                         color: Colors.white,
@@ -62,7 +62,7 @@ class _SessionDetailsState extends State<SessionDetails> {
                       height: height * 0.01,
                     ),
                     Text(
-                      session.duration.inMinutes.toString() + " minutes",
+                      (session.durationInSeconds / 60).toString() + " minutes",
                       style: TextStyle(
                         fontSize: 25,
                         color: Colors.white,
@@ -117,7 +117,7 @@ class _SessionDetailsState extends State<SessionDetails> {
               height: height * 0.04,
             ),
             Padding(
-              padding:  EdgeInsets.only(left: width * 0.05),
+              padding: EdgeInsets.only(left: width * 0.05),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -133,7 +133,7 @@ class _SessionDetailsState extends State<SessionDetails> {
               height: height * 0.01,
             ),
             Padding(
-                padding:  EdgeInsets.only(left: width * 0.05),
+              padding: EdgeInsets.only(left: width * 0.05),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -173,7 +173,7 @@ class _SessionDetailsState extends State<SessionDetails> {
           ),
           elevation: 15,
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -292,7 +292,7 @@ class _SessionDetailsState extends State<SessionDetails> {
           ),
           elevation: 15,
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -309,7 +309,9 @@ class _SessionDetailsState extends State<SessionDetails> {
                 ),
                 Container(
                   child: Text(
-                    session.timeInFlow.inMinutes.toString(),
+                    Duration(seconds: session.timeInFlowInSeconds)
+                        .inMinutes
+                        .toString(),
                     style: TextStyle(
                       fontSize: 30,
                       color: Colors.white,

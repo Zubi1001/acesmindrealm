@@ -1,12 +1,17 @@
+import 'package:aces/Objects/session.dart';
 import 'package:aces/Screens/selectSubject.dart';
 import 'package:flutter/material.dart';
 
 class SelectCategory extends StatefulWidget {
+  final Session session;
+
+  const SelectCategory({Key key, this.session}) : super(key: key);
   @override
   _SelectCategoryState createState() => _SelectCategoryState();
 }
 
 class _SelectCategoryState extends State<SelectCategory> {
+  Session session;
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -63,9 +68,19 @@ class _SelectCategoryState extends State<SelectCategory> {
               SizedBox(
                 height: height * 0.07,
               ),
-              Placeholder(
-                fallbackHeight: height * 0.2,
-                fallbackWidth: width * 0.3,
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => SelectSubject(
+                      isWork: false,
+                      session: widget.session,
+                    ),
+                  ));
+                },
+                child: Placeholder(
+                  fallbackHeight: height * 0.2,
+                  fallbackWidth: width * 0.3,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -79,7 +94,10 @@ class _SelectCategoryState extends State<SelectCategory> {
               InkWell(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => SelectSubject(),
+                    builder: (context) => SelectSubject(
+                      isWork: true,
+                      session: widget.session,
+                    ),
                   ));
                 },
                 child: Placeholder(

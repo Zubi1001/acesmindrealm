@@ -1,9 +1,14 @@
+import 'package:aces/Objects/session.dart';
 import 'package:aces/Screens/categorySelection.dart';
 import 'package:aces/Screens/sessionDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PlaceSelection extends StatefulWidget {
+  final Session session;
+
+  const PlaceSelection({Key key, this.session}) : super(key: key);
+
   @override
   _PlaceSelectionState createState() => _PlaceSelectionState();
 }
@@ -20,6 +25,7 @@ class _PlaceSelectionState extends State<PlaceSelection> {
     'Office',
     'Other',
   ];
+  Session session;
 
   String selected = '';
 
@@ -29,6 +35,7 @@ class _PlaceSelectionState extends State<PlaceSelection> {
     double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -63,7 +70,7 @@ class _PlaceSelectionState extends State<PlaceSelection> {
               Padding(
                 padding: EdgeInsets.only(left: width * 0.08),
                 child: Text(
-                  "Where are you studying?",
+                  "Where are you?",
                   style: TextStyle(
                     fontSize: 20,
                   ),
@@ -84,7 +91,7 @@ class _PlaceSelectionState extends State<PlaceSelection> {
                       // highlightColor: Colors.transparent,
                       // focusColor: Colors.transparent,
                       // hoverColor: Colors.transparent,
-                      
+
                       onTap: () {
                         if (selected == places[index]) {
                           setState(() {
@@ -158,11 +165,30 @@ class _PlaceSelectionState extends State<PlaceSelection> {
                           children: [
                             FlatButton(
                                 onPressed: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) => SelectCategory(),
-                                    ),
-                                  );
+                                  if (selected == "Other" &&
+                                      otherPlace.text.isEmpty) {
+                                    scaffoldKey.currentState
+                                        .showSnackBar(SnackBar(
+                                            backgroundColor: Colors.red,
+                                            content: Text(
+                                              "Please enter the place name",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                              ),
+                                            )));
+                                  } else {
+                                    session = widget.session;
+                                    selected == "Other"
+                                        ? session.place = otherPlace.text
+                                        : session.place = selected;
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => SelectCategory(
+                                          session: session,
+                                        ),
+                                      ),
+                                    );
+                                  }
                                 },
 
                                 // icon: Icon(
@@ -189,5 +215,6 @@ class _PlaceSelectionState extends State<PlaceSelection> {
     );
   }
 
+  GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
   TextEditingController otherPlace = new TextEditingController();
 }

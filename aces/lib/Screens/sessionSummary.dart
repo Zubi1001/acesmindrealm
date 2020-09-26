@@ -1,5 +1,7 @@
 import 'package:aces/Objects/session.dart';
 import 'package:aces/Screens/Dashboard.dart';
+import 'package:aces/auth/authService.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class SessionSummary extends StatefulWidget {
@@ -50,13 +52,13 @@ class _SessionSummaryState extends State<SessionSummary> {
             buildCustomRow(
               string1: "Session Average Focus Level",
               string2: "Your overall average focus:",
-              value1: 63,
+              value1: session.averageSessionFocus ?? 63,
               value2: 10,
             ),
             buildCustomRow(
               string1: "Highest Focus Level",
               string2: "your all-time highest:",
-              value1: 76,
+              value1: session.highestFocus ?? 76,
               value2: 83,
             ),
             buildCustomRow(
@@ -79,12 +81,27 @@ class _SessionSummaryState extends State<SessionSummary> {
             ),
             InkWell(
               onTap: () {
-                Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                    builder: (context) => Dashboard(),
-                  ), 
-                  (Route<dynamic> route) => false
-                );
+                var docID = Firestore.instance
+                    .collection('/users')
+                    .document(currentUser.uid)
+                    .collection('sessions')
+                    .document()
+                    .documentID;
+
+                session.sessionID = docID;
+                Firestore.instance
+                    .collection('/users')
+                    .document(currentUser.uid)
+                    .collection('sessions')
+                    .document(docID)
+                    .setData(session.toJson())
+                    .then((value) {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) => Dashboard(),
+                      ),
+                      (Route<dynamic> route) => false);
+                });
               },
               child: Text(
                 "tap here to continue",
@@ -114,7 +131,7 @@ class _SessionSummaryState extends State<SessionSummary> {
         ),
         Spacer(),
         Text(
-          session?.tiredness?.toString() ?? value.toString(),
+          session?.lowestFocus?.toString() ?? "5",
           style: TextStyle(
             fontSize: 30,
             color: Colors.red,
@@ -139,10 +156,11 @@ class _SessionSummaryState extends State<SessionSummary> {
         ),
         Spacer(),
         Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Text(
-              session?.tiredness?.toString() ?? value.toString(),
+              Duration(seconds: session.durationInSeconds).inMinutes.toString(),
+              // session?.tiredness?.toString() ?? value.toString(),
               style: TextStyle(
                 fontSize: 30,
                 color: Colors.black,
@@ -195,7 +213,7 @@ class _SessionSummaryState extends State<SessionSummary> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-                session?.tiredness?.toString() ?? value1.toString(),
+                value1.toString(),
                 style: TextStyle(
                   fontSize: 30,
                   color: value1 > value2
@@ -207,7 +225,7 @@ class _SessionSummaryState extends State<SessionSummary> {
                 height: 8,
               ),
               Text(
-                session?.tiredness?.toString() ?? value2.toString(),
+                value2.toString(),
                 style: TextStyle(
                   fontSize: 15,
                   color: Colors.grey,

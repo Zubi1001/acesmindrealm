@@ -1,9 +1,13 @@
+import 'package:aces/Objects/session.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'sessionSummary.dart';
 
 class ActiveSession extends StatefulWidget {
+  final Session session;
+
+  const ActiveSession({Key key, this.session}) : super(key: key);
   @override
   _ActiveSessionState createState() => _ActiveSessionState();
 }
@@ -15,6 +19,10 @@ AppStatus activeStatus = AppStatus.Inactive;
 enum AppStatus { Active, Inactive }
 
 class _ActiveSessionState extends State<ActiveSession> {
+  Session session;
+  TextEditingController sessionNotes=new TextEditingController();
+
+
   @override
   void initState() {
     super.initState();
@@ -27,7 +35,6 @@ class _ActiveSessionState extends State<ActiveSession> {
       stopWatchTimer = StopWatchTimer(
         onChangeRawSecond: (int secs) {
           activeSeconds = secs;
-         
         },
       );
       activeStatus = AppStatus.Active;
@@ -87,15 +94,12 @@ class _ActiveSessionState extends State<ActiveSession> {
           ),
           Positioned(
             bottom: 0,
-            child: SingleChildScrollView(
-              child: Container(
-                // margin: EdgeInsets.only(
-                //   top: MediaQuery.of(context).size.height * .45,
-                // ),
-                decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(40),
-                ),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(40),
+              ),
+              child: SingleChildScrollView(
                 child: Container(
                   padding: EdgeInsets.fromLTRB(25, 30, 25, 10),
                   width: MediaQuery.of(context).size.width,
@@ -177,7 +181,7 @@ class _ActiveSessionState extends State<ActiveSession> {
                                 children: [
                                   // Spacer(),
                                   Text(
-                                    "6",
+                                    widget.session.tiredness?.toString() ?? "?",
                                     style: TextStyle(
                                         fontSize: 40,
                                         fontWeight: FontWeight.w600,
@@ -211,7 +215,7 @@ class _ActiveSessionState extends State<ActiveSession> {
                                   ),
                                   // FaIcon(FontAwesomeIcons.bookOpen),
                                   SizedBox(height: 6),
-                                  Text("Library",
+                                  Text(widget.session.place ?? "Unknown",
                                       style: TextStyle(fontSize: 10)),
                                 ],
                               ),
@@ -238,7 +242,7 @@ class _ActiveSessionState extends State<ActiveSession> {
                                     color: Colors.grey[600],
                                   ),
                                   SizedBox(height: 6),
-                                  Text("Chemistry",
+                                  Text(widget.session.task ?? "Unknown",
                                       style: TextStyle(fontSize: 10)),
                                 ],
                               ),
@@ -257,6 +261,9 @@ class _ActiveSessionState extends State<ActiveSession> {
                             fontWeight: FontWeight.w500),
                       ),
                       TextField(
+                        controller: sessionNotes,
+                        maxLines: 4,
+                        keyboardType: TextInputType.multiline,
                         decoration: InputDecoration(
                           hintText: "Enter text",
                           focusedBorder: InputBorder.none,
@@ -276,13 +283,19 @@ class _ActiveSessionState extends State<ActiveSession> {
                             child: InkWell(
                               onTap: () {
                                 activeStatus = AppStatus.Inactive;
+                                session=widget.session;
+                                session.durationInSeconds = activeSeconds;
+                                session.sessionNotes=sessionNotes.text;
                                 activeSeconds = 0;
+
                                 stopWatchTimer.onExecute
                                     .add(StopWatchExecute.stop);
                                 setState(() {});
                                 Navigator.of(context)
                                     .pushReplacement(MaterialPageRoute(
-                                  builder: (context) => SessionSummary(),
+                                  builder: (context) => SessionSummary(
+                                    session: session,
+                                  ),
                                 ));
                               },
                               child: Container(
@@ -304,36 +317,36 @@ class _ActiveSessionState extends State<ActiveSession> {
                               ),
                             ),
                           ),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: IconButton(
-                              onPressed: sessionPlaying
-                                  ? () {
-                                      stopWatchTimer.onExecute
-                                          .add(StopWatchExecute.stop);
-                                      setState(() {
-                                        sessionPlaying = false;
-                                      });
-                                    }
-                                  : () {
-                                      stopWatchTimer.onExecute
-                                          .add(StopWatchExecute.start);
-                                      setState(() {
-                                        sessionPlaying = true;
-                                      });
-                                    },
-                              icon: sessionPlaying
-                                  ? Icon(
-                                      Icons.pause,
-                                      color: myColor,
-                                    )
-                                  : Icon(
-                                      Icons.play_arrow,
-                                      color: myColor,
-                                    ),
-                            ),
-                            // label: Text("Pause")),
-                          ),
+                          // ClipRRect(
+                          //   borderRadius: BorderRadius.circular(20),
+                          //   child: IconButton(
+                          //     onPressed: sessionPlaying
+                          //         ? () {
+                          //             stopWatchTimer.onExecute
+                          //                 .add(StopWatchExecute.stop);
+                          //             setState(() {
+                          //               sessionPlaying = false;
+                          //             });
+                          //           }
+                          //         : () {
+                          //             stopWatchTimer.onExecute
+                          //                 .add(StopWatchExecute.start);
+                          //             setState(() {
+                          //               sessionPlaying = true;
+                          //             });
+                          //           },
+                          //     icon: sessionPlaying
+                          //         ? Icon(
+                          //             Icons.pause,
+                          //             color: myColor,
+                          //           )
+                          //         : Icon(
+                          //             Icons.play_arrow,
+                          //             color: myColor,
+                          //           ),
+                          //   ),
+                          //   // label: Text("Pause")),
+                          // ),
                         ],
                       ),
                     ],

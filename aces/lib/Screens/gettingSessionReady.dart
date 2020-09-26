@@ -1,7 +1,11 @@
+import 'package:aces/Objects/session.dart';
 import 'package:aces/Screens/activeSession.dart';
 import 'package:flutter/material.dart';
 
 class GettingSessionReady extends StatefulWidget {
+  final Session session;
+
+  const GettingSessionReady({Key key, this.session}) : super(key: key);
   @override
   _GettingSessionReadyState createState() => _GettingSessionReadyState();
 }
@@ -15,7 +19,9 @@ class _GettingSessionReadyState extends State<GettingSessionReady> {
     Future.delayed(Duration(seconds: 8)).then((value) {
       if (mounted) {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => ActiveSession(),
+          builder: (context) => ActiveSession(
+            session: widget.session,
+          ),
         ));
       }
     });
