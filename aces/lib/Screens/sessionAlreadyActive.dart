@@ -16,18 +16,13 @@ class _SessionAlreadyActiveState extends State<SessionAlreadyActive> {
         elevation: 0,
       ),
       body: Padding(
-        padding:  EdgeInsets.symmetric(
-          horizontal: width*0.1
-        ),
+        padding: EdgeInsets.symmetric(horizontal: width * 0.1),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Placeholder(
-              fallbackHeight: height * 0.2,
-              fallbackWidth: width * 0.7,
-            ),
+            Image.asset("assets/sessionAlreadyActive.gif"),
             SizedBox(
-              height: height*0.06,
+              height: height * 0.06,
             ),
             Text(
               "Hey there!",
@@ -37,7 +32,7 @@ class _SessionAlreadyActiveState extends State<SessionAlreadyActive> {
               ),
             ),
             SizedBox(
-              height: height*0.03,
+              height: height * 0.03,
             ),
             Text(
               "It seems that you’re already in a session! \n\nPlease end your current one before starting a new one!",

@@ -1,3 +1,4 @@
+import 'package:aces/Managers/assetManager.dart';
 import 'package:aces/Objects/session.dart';
 import 'package:aces/Screens/categorySelection.dart';
 import 'package:aces/Screens/sessionDetails.dart';
@@ -14,17 +15,7 @@ class PlaceSelection extends StatefulWidget {
 }
 
 class _PlaceSelectionState extends State<PlaceSelection> {
-  List<String> places = [
-    'Coffee shop',
-    'Table',
-    'Bed',
-    'Home Office',
-    'Library',
-    'Living Room',
-    'School',
-    'Office',
-    'Other',
-  ];
+ 
   Session session;
 
   String selected = '';

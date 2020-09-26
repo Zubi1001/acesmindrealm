@@ -62,7 +62,7 @@ class _SessionDetailsState extends State<SessionDetails> {
                       height: height * 0.01,
                     ),
                     Text(
-                      (session.durationInSeconds / 60).toString() + " minutes",
+                      (session.durationInSeconds ~/ 60).toString() + " minute${(session.durationInSeconds ~/ 60)==1?"":'s'}",
                       style: TextStyle(
                         fontSize: 25,
                         color: Colors.white,
@@ -137,7 +137,7 @@ class _SessionDetailsState extends State<SessionDetails> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  session.sessionNotes,
+                  session?.sessionNotes??"N/A",
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.grey,
@@ -309,7 +309,7 @@ class _SessionDetailsState extends State<SessionDetails> {
                 ),
                 Container(
                   child: Text(
-                    Duration(seconds: session.timeInFlowInSeconds)
+                    Duration(seconds: session?.timeInFlowInSeconds??100)
                         .inMinutes
                         .toString(),
                     style: TextStyle(
@@ -319,7 +319,7 @@ class _SessionDetailsState extends State<SessionDetails> {
                   ),
                 ),
                 Text(
-                  "minutes",
+                  "minute${Duration(seconds: session?.timeInFlowInSeconds??100).inMinutes==1?'':'s'}",
                   style: TextStyle(
                     fontSize: 11,
                     color: Colors.white,

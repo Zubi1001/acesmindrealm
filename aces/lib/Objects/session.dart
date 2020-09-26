@@ -39,7 +39,7 @@ class Session {
         'sessionID': sessionID,
         'task': task,
         'sessionDate': DateTime.now().toIso8601String(),
-        'duration': durationInSeconds,
+        'durationInSeconds': durationInSeconds,
         'highestFocus': highestFocus,
         'lowestFocus': lowestFocus,
         'timeInFlowInSeconds': timeInFlowInSeconds,
