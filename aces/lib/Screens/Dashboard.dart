@@ -7,6 +7,7 @@ import 'package:aces/Screens/testValues.dart';
 import 'package:aces/auth/authService.dart';
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
@@ -149,7 +150,9 @@ class _DashboardState extends State<Dashboard> {
                     CircleAvatar(
                       backgroundColor: Colors.transparent,
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          FirebaseAuth.instance.signOut();
+                        },
                         child: Icon(
                           Icons.person,
                           color: Colors.grey[400],

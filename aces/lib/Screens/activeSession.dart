@@ -288,6 +288,7 @@ class _ActiveSessionState extends State<ActiveSession> {
                           Center(
                             child: InkWell(
                               onTap: () {
+                                player.stop();
                                 activeStatus = AppStatus.Inactive;
                                 session = widget.session;
                                 session.durationInSeconds = activeSeconds;

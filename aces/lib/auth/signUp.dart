@@ -3,6 +3,7 @@ import 'package:aces/Screens/sessionDetails.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SignUp extends StatefulWidget {
@@ -38,10 +39,30 @@ class _SignUpState extends State<SignUp> {
                     SizedBox(
                       height: height * 0.1,
                     ),
-                    Placeholder(
-                      fallbackHeight: height * 0.4,
+                    CircleAvatar(
+                      radius: height * 0.1,
+                      backgroundColor: myPink,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset("assets/logo.svg",
+                              height: height * 0.1,
+                              // width: 100,
+                              color: Colors.white,
+                              semanticsLabel: 'aces logo'),
+                          Text(
+                            "ACES",
+                            style: TextStyle(
+                              color: Colors.white,
+                              letterSpacing: 2,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    Spacer(),
+                    SizedBox(
+                      height: height * 0.1,
+                    ),
                     TextFormField(
                       validator: (value) {
                         if (value.isEmpty) {
@@ -165,7 +186,15 @@ class _SignUpState extends State<SignUp> {
                         ),
                       ),
                     ),
-                    // Spacer(),
+                    Spacer(),
+                    Container(
+                      width: width*0.7,
+                      child: Text(
+                        "By signing up you agree to the the terms and conditions of ACES By MindRealm",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.grey[600]),
+                      ),
+                    ),
                     SizedBox(
                       height: height * 0.1,
                     ),

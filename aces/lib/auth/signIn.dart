@@ -2,6 +2,7 @@ import 'package:aces/Screens/sessionDetails.dart';
 import 'package:aces/auth/signUp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SignIn extends StatefulWidget {
@@ -37,10 +38,31 @@ class _SignInState extends State<SignIn> {
                     SizedBox(
                       height: height * 0.1,
                     ),
-                    Placeholder(
-                      fallbackHeight: height * 0.4,
+                    CircleAvatar(
+                      radius: height * 0.1,
+                      backgroundColor: myPink,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset("assets/logo.svg",
+                              height: height * 0.1,
+                              // width: 100,
+                              color: Colors.white,
+                              semanticsLabel: 'aces logo'),
+                          Text(
+                            "ACES",
+                            style: TextStyle(
+                              color: Colors.white,
+                              letterSpacing: 2,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    Spacer(),
+                    SizedBox(
+                      height: height * 0.1,
+                    ),
+                    //Spacer(),
                     // TextFormField(
                     //   controller: name,
                     //   decoration: InputDecoration(
@@ -81,7 +103,7 @@ class _SignInState extends State<SignIn> {
                     ),
                     Divider(),
                     TextFormField(
-                       obscureText: true,
+                      obscureText: true,
                       validator: (value) {
                         if (value.isEmpty) {
                           return "Password cannot be empty";
@@ -103,9 +125,74 @@ class _SignInState extends State<SignIn> {
                         hintText: "Password",
                       ),
                     ),
-                    Divider(),
+                    InkWell(
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            child: AlertDialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              title: Text("Reset Password"),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  TextFormField(
+                                    controller: email,
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    "An email will be sent to the above id with instructions to reset your password.",
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Container(
+                                    width: width * 0.7,
+                                    height: height * 0.06,
+                                    child: RaisedButton(
+                                      elevation: 5,
+                                      color: Color(0xFFFF6F6F),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      onPressed: () {
+                                        if (email.text.isNotEmpty) {
+                                          FirebaseAuth.instance
+                                              .sendPasswordResetEmail(
+                                                  email: email.text);
+                                        }
+                                      },
+                                      child: Text(
+                                        "Send email",
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ));
+                      },
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          "Forgot Password ?",
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            color: myPink,
+                          ),
+                        ),
+                      ),
+                    ),
+                    // Divider(),
                     SizedBox(
-                      height: height * 0.02,
+                      height: height * 0.08,
                     ),
                     InkWell(
                       onTap: () {
@@ -148,6 +235,7 @@ class _SignInState extends State<SignIn> {
                         ),
                       ),
                     ),
+
                     SizedBox(
                       height: height * 0.1,
                     ),
